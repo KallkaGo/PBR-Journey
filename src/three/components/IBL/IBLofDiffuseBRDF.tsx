@@ -2,14 +2,22 @@
 Importance Sampling: Image-based Lighting of a Lambertian Diffuse BRDF
 */
 
-import { OrthographicCamera } from '@react-three/drei'
+import { OrthographicCamera, useEnvironment } from '@react-three/drei'
+import { useFrame } from '@react-three/fiber'
 import { useInteractStore } from '@utils/Store'
-import { useEffect, useMemo } from 'react'
-import { BufferGeometry, Float32BufferAttribute, ShaderMaterial, Uniform, Vector2 } from 'three'
+import { useEffect, useMemo, useRef } from 'react'
+import { BufferGeometry, Float32BufferAttribute, ShaderMaterial, Uniform } from 'three'
+import RES from '../RES'
 import fragmentShader from '../shaders/IBLofDiffuseBRDF/fragment.glsl'
 import vertexShader from '../shaders/IBLofDiffuseBRDF/vertex.glsl'
 
 function IBLofDiffuseBRDF() {
+  const envHdr = useEnvironment({ files: RES.texture.hdr })
+
+  const params = useRef({
+    init: false,
+  })
+
   const geometry = useMemo(() => {
     const bufferGeo = new BufferGeometry()
     bufferGeo.setAttribute(
@@ -26,8 +34,11 @@ function IBLofDiffuseBRDF() {
 
   const uniforms = useMemo(() => {
     return {
-      uResolution: new Uniform(new Vector2(innerWidth, innerHeight)),
-      uTime: new Uniform(0),
+      uEnvMap: new Uniform(envHdr),
+      uWidth: new Uniform(envHdr.image.width),
+      uHeight: new Uniform(envHdr.image.height),
+      uSamples: new Uniform(256),
+      uMipmapLevel: new Uniform(0),
     }
   }, [])
 
@@ -42,6 +53,14 @@ function IBLofDiffuseBRDF() {
   useEffect(() => {
     useInteractStore.setState({ controlEnabled: false })
   }, [])
+
+  useFrame((state, delta) => {
+    const { gl, scene, camera } = state
+    if (!params.current.init) {
+      params.current.init = true
+      gl.render(scene, camera)
+    }
+  }, 1)
 
   return (
 
