@@ -23,12 +23,6 @@ importers:
       '@react-three/postprocessing':
         specifier: ^2.16.0
         version: 2.16.0(@react-three/fiber@8.18.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(three@0.171.0))(@types/three@0.161.2)(react@18.2.0)(three@0.171.0)
-      '@wtto00/jweixin-esm':
-        specifier: ^1.6.0-5
-        version: 1.6.0-5
-      dingtalk-jsapi:
-        specifier: ^3.0.31
-        version: 3.0.31
       gsap:
         specifier: ^3.12.5
         version: 3.12.5
@@ -50,9 +44,6 @@ importers:
       react-dom:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
-      swiper:
-        specifier: ^11.0.7
-        version: 11.0.7
       three:
         specifier: ^0.171.0
         version: 0.171.0
@@ -1194,9 +1185,6 @@ packages:
   '@vue/shared@3.5.13':
     resolution: {integrity: sha512-/hnE/qP5ZoGpol0a5mDi45bOd7t3tjYJBjsgCsivow7D48cJeV5l05RD82lPqi7gRiphZM37rnhW1l6ZoCNNnQ==}
 
-  '@wtto00/jweixin-esm@1.6.0-5':
-    resolution: {integrity: sha512-HE9snjv5ImRw9+QqHe8X5KxG0RFXhZ4Yf4ScFkB7vv8nR8By0MiHmjPlIBt8P/u0RMtlCBBjoMx+FbbAd2Bjow==}
-
   acorn-jsx@5.3.2:
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
     peerDependencies:
@@ -1434,9 +1422,6 @@ packages:
 
   devlop@1.1.0:
     resolution: {integrity: sha512-RWmIqhcFf1lRYBvNmr7qTNuyCt/7/ns2jbpp1+PalgE/rDQcBT0fioSMUpJ93irlUhC5hrg4cYqe6U+0ImW0rA==}
-
-  dingtalk-jsapi@3.0.31:
-    resolution: {integrity: sha512-5Z6edW7tNkcPcLpGNrq+xqwfCLCnl1Ax8V0M3JhUeWlx0OzgByhZTkwEgVuF6ytFBKCrNvTNrnFSbKM5uREPoQ==}
 
   doctrine@3.0.0:
     resolution: {integrity: sha512-yS+Q5i3hBf7GBkd4KG8a7eBNNWNGLTaEwwYWUijIYM7zrlYDM0BFXHjjPWlWZ1Rg7UaddZeIDmi9jF3HmqiQ2w==}
@@ -2457,9 +2442,6 @@ packages:
     engines: {node: '>=14'}
     hasBin: true
 
-  promise-polyfill@7.1.2:
-    resolution: {integrity: sha512-FuEc12/eKqqoRYIGBrUptCBRhobL19PS2U31vMNTfyck1FxPyMfgsXyW4Mav85y/ZN1hop3hOwRlUDok23oYfQ==}
-
   promise-worker-transferable@1.0.4:
     resolution: {integrity: sha512-bN+0ehEnrXfxV2ZQvU2PetO0n4gqBD4ulq3MI1WOPLgr7/Mg9yRQkX5+0v1vagr74ZTsl7XtzlaYDo2EuCeYJw==}
 
@@ -2738,10 +2720,6 @@ packages:
     resolution: {integrity: sha512-aqldKgX9aZqpoDp3e8/BZ8Dm7x1pJl+qI3ZKxDN0i/IQTWUwBx/ManmlVJ3wowqbno6c2bmiIfs+Um6LbsjJyQ==}
     peerDependencies:
       react: '>=17.0'
-
-  swiper@11.0.7:
-    resolution: {integrity: sha512-cDfglW1B6uSmB6eB6pNmzDTNLmZtu5bWWa1vak0RU7fOI9qHjMzl7gVBvYSl34b0RU2N11HxxETJqQ5LeqI1cA==}
-    engines: {node: '>= 4.7.0'}
 
   synckit@0.6.2:
     resolution: {integrity: sha512-Vhf+bUa//YSTYKseDiiEuQmhGCoIF3CVBhunm3r/DQnYiGT4JssmnKQc44BIyOZRK2pKjXXAgbhfmbeoC9CJpA==}
@@ -4236,8 +4214,6 @@ snapshots:
 
   '@vue/shared@3.5.13': {}
 
-  '@wtto00/jweixin-esm@1.6.0-5': {}
-
   acorn-jsx@5.3.2(acorn@8.11.3):
     dependencies:
       acorn: 8.11.3
@@ -4441,10 +4417,6 @@ snapshots:
   devlop@1.1.0:
     dependencies:
       dequal: 2.0.3
-
-  dingtalk-jsapi@3.0.31:
-    dependencies:
-      promise-polyfill: 7.1.2
 
   doctrine@3.0.0:
     dependencies:
@@ -5743,8 +5715,6 @@ snapshots:
 
   prettier@3.4.2: {}
 
-  promise-polyfill@7.1.2: {}
-
   promise-worker-transferable@1.0.4:
     dependencies:
       is-promise: 2.2.2
@@ -6027,8 +5997,6 @@ snapshots:
   suspend-react@0.1.3(react@18.2.0):
     dependencies:
       react: 18.2.0
-
-  swiper@11.0.7: {}
 
   synckit@0.6.2:
     dependencies:
