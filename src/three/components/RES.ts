@@ -1,4 +1,4 @@
-import envHDR from '@textures/env/blaubeuren_night_1k.hdr'
+import envHDR from '@textures/env/teatro_massimo_1k.hdr'
 
 export default {
   model: {

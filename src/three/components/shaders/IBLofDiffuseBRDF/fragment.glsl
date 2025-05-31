@@ -74,7 +74,5 @@ vec3 prefilterEnvMapDiffuse(in sampler2D envmapSampler, in vec2 tex) {
 
 void main(){
   vec3 color = prefilterEnvMapDiffuse(uEnvMap, vUv);
-  // Gamma correction
-  color = pow(color, vec3(1.0 / 2.2));
   gl_FragColor = vec4(color, 1.0);
 }
