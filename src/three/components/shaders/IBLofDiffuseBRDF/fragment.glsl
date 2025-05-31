@@ -58,9 +58,11 @@ vec3 prefilterEnvMapDiffuse(in sampler2D envmapSampler, in vec2 tex) {
   uint N = uint(uSamples);
   for(uint n = 0u; n < N; n++) {
     vec3 random = random_pcg3d(uvec3(px, py, n));
+    // inverse transform sampling
     float phi = 2.0 * PI * random.x;
     float theta = asin(sqrt(random.y));
     vec3 posLocal = vec3(sin(theta) * cos(phi), sin(theta) * sin(phi), cos(theta));
+    // local to world
     vec3 posWorld = normalTransform * posLocal;
     vec2 uv = directionToSphericalEnvmap(posWorld);
     vec3 radiance = textureLod(envmapSampler, uv, uMipmapLevel).rgb;
