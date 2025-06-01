@@ -6,14 +6,15 @@ uniform sampler2D albedoMap;
 uniform sampler2D metalicMap;
 uniform sampler2D normalMap;
 uniform sampler2D roughnessMap;
-uniform sampler2D envMap;
+uniform sampler2D prefilterDiffuse;
+uniform sampler2D prefilterSpecular;
 
 uniform float lightIntensity;
 uniform float reflectance;
 uniform vec3 lightDirection;
 uniform vec3 lightColor;
-uniform vec3 ambientLightColor;
-uniform float ambientLightIntensity;
+
+
 
 #define PI 3.1415926535897932384626433832795
 #define RECIPROCAL_PI 0.3183098861837907
@@ -145,8 +146,8 @@ void main(){
 
   // IBL Diffuse
   vec2 envUV = directionToSphericalEnvmap(normal);
-  radiance += diffuse * texture(envMap, envUV).rgb;
-
+  radiance += diffuse * texture(prefilterDiffuse, envUV).rgb;
+  
   // gamma correction
   radiance = pow(radiance, vec3(1.0/2.2));
 

@@ -1,7 +1,9 @@
 import { useGLTF, useTexture } from '@react-three/drei'
+import { useFrame } from '@react-three/fiber'
 import { useEffect } from 'react'
 import { Color, Mesh, RepeatWrapping, ShaderMaterial, SRGBColorSpace, Uniform, Vector3 } from 'three'
-import { IBLofDiffuseBRDF } from '../IBL/IBLofDiffuseBRDF'
+import { PrefilterDiffuse } from '../IBL/PrefilterDiffuse'
+import { PrefilterSpecular } from '../IBL/PrefilterSpecular'
 import RES from '../RES'
 import gunFragmentShader from '../shaders/gun/fragment.glsl'
 import gunVertexShader from '../shaders/gun/vertex.glsl'
@@ -26,7 +28,9 @@ function Gun() {
   roughnessTexture.flipY = false
   roughnessTexture.wrapS = roughnessTexture.wrapT = RepeatWrapping
 
-  const prefilterEnvMapDiffuse = IBLofDiffuseBRDF()
+  const prefilterDiffuse = PrefilterDiffuse()
+
+  const prefilterSpecular = PrefilterSpecular()
 
   useEffect(() => {
     gltf.scene.traverse((child) => {
@@ -43,7 +47,8 @@ function Gun() {
             lightIntensity: new Uniform(1.0),
             reflectance: new Uniform(0.5),
             lightColor: new Uniform(new Color(1, 1, 1)),
-            envMap: new Uniform(prefilterEnvMapDiffuse),
+            prefilterDiffuse: new Uniform(prefilterDiffuse),
+            prefilterSpecular: new Uniform(prefilterSpecular),
           },
         })
         child.material = newMat
