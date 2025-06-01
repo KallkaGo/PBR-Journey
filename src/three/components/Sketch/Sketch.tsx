@@ -1,22 +1,26 @@
-import { Environment, OrbitControls } from '@react-three/drei'
+import { OrbitControls, useEnvironment } from '@react-three/drei'
+import { useThree } from '@react-three/fiber'
 import { useInteractStore, useLoadedStore } from '@utils/Store'
-import { useEffect, useMemo } from 'react'
-import { ShaderMaterial, Uniform } from 'three'
+import { useEffect } from 'react'
 import { Gun } from '../Gun/Gun'
-import { IBLofDiffuseBRDF } from '../IBL/IBLofDiffuseBRDF'
-import debugFragmentShader from '../shaders/debug/fragment.glsl'
-import debugVertexShader from '../shaders/debug/vertex.glsl'
+import RES from '../RES'
 
 function Sketch() {
   const controlDom = useInteractStore(state => state.controlDom)
 
+  const scene = useThree(state => state.scene)
+
+  const hdrTexture = useEnvironment({ files: RES.texture.hdr })
+
   useEffect(() => {
+    scene.background = hdrTexture
+
     useLoadedStore.setState({ ready: true })
   }, [])
 
   return (
     <>
-      <OrbitControls domElement={controlDom}  />
+      <OrbitControls domElement={controlDom} />
       <color attach="background" args={['black']} />
       <Gun />
     </>

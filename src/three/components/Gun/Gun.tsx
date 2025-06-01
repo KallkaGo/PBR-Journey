@@ -1,6 +1,6 @@
 import { useGLTF, useTexture } from '@react-three/drei'
 import { useEffect } from 'react'
-import { Color, Mesh, ShaderMaterial, SRGBColorSpace, Uniform, Vector3 } from 'three'
+import { Color, Mesh, RepeatWrapping, ShaderMaterial, SRGBColorSpace, Uniform, Vector3 } from 'three'
 import { IBLofDiffuseBRDF } from '../IBL/IBLofDiffuseBRDF'
 import RES from '../RES'
 import gunFragmentShader from '../shaders/gun/fragment.glsl'
@@ -11,13 +11,20 @@ function Gun() {
 
   const albedoTexture = useTexture(RES.texture.gunAlbedo)
   albedoTexture.colorSpace = SRGBColorSpace
+  albedoTexture.wrapS = albedoTexture.wrapT = RepeatWrapping
   albedoTexture.flipY = false
+
   const metalicTexture = useTexture(RES.texture.gunMetalic)
   metalicTexture.flipY = false
+  metalicTexture.wrapS = metalicTexture.wrapT = RepeatWrapping
+
   const normalTexture = useTexture(RES.texture.gunNormal)
+  normalTexture.wrapS = normalTexture.wrapT = RepeatWrapping
   normalTexture.flipY = false
+
   const roughnessTexture = useTexture(RES.texture.gunRoughness)
   roughnessTexture.flipY = false
+  roughnessTexture.wrapS = roughnessTexture.wrapT = RepeatWrapping
 
   const prefilterEnvMapDiffuse = IBLofDiffuseBRDF()
 

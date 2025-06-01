@@ -25,7 +25,7 @@ function IBLofDiffuseBRDF() {
       uEnvMap: new Uniform(envHdr),
       uWidth: new Uniform(envHdr.image.width),
       uHeight: new Uniform(envHdr.image.height),
-      uSamples: new Uniform(2048),
+      uSamples: new Uniform(4096),
       uMipmapLevel: new Uniform(5),
     }
   }, [])
