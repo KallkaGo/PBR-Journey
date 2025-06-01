@@ -5,7 +5,7 @@ Importance Sampling: Image-based Lighting of a Lambertian Diffuse BRDF
 import { useEnvironment, useFBO } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import { useMemo, useRef } from 'react'
-import { LinearMipMapLinearFilter, ShaderMaterial, SRGBColorSpace, Uniform } from 'three'
+import { LinearMipMapLinearFilter, ShaderMaterial, Uniform } from 'three'
 import { FullScreenQuad } from 'three-stdlib'
 import RES from '../RES'
 import fragmentShader from '../shaders/IBLofDiffuseBRDF/fragment.glsl'
