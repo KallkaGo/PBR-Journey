@@ -1,5 +1,5 @@
 import gun from '@models/gun/gun.glb'
-import envHDR from '@textures/env/blaubeuren_night_1k.hdr'
+import envHDR from '@textures/env/teatro_massimo_1k.hdr'
 import gunAlbedo from '@textures/gun/Cerberus_A.png'
 import gunMetalic from '@textures/gun/Cerberus_M.png'
 import gunNormal from '@textures/gun/Cerberus_N.png'

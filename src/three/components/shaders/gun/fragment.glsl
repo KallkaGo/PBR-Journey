@@ -131,17 +131,17 @@ void main(){
   vec3 lightDir = normalize(lightDirection); // towards light
   vec3 viewDir = normalize(cameraPosition - vWorldPosition);
   vec3 normal = normalize(vWorldNormal);
-  // normal = applyNormalMap(normal, viewDir, vUv);
+  normal = applyNormalMap(normal, viewDir, vUv);
 
   vec3 radiance = vec3(0.0);
 
   float irradiance = max(0.,dot(normal, lightDir)) * lightIntensity;
 
-  // if(irradiance > 0.){
-  //   vec3 brdf = brdfMicrofacet(lightDir, viewDir, normal, metallic, roughness, diffuse, reflectance);
-  //   // irradiance contribution from directional light
-  //   radiance += brdf * irradiance * lightColor;
-  // }
+  if(irradiance > 0.){
+    vec3 brdf = brdfMicrofacet(lightDir, viewDir, normal, metallic, roughness, diffuse, reflectance);
+    // irradiance contribution from directional light
+    radiance += brdf * irradiance * lightColor;
+  }
 
   // IBL Diffuse
   vec2 envUV = directionToSphericalEnvmap(normal);
