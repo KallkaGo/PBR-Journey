@@ -2,25 +2,29 @@
 Importance Sampling: Image-based Lighting of a Lambertian Diffuse BRDF
 */
 
-import { useEnvironment, useFBO } from '@react-three/drei'
+import { useEnvironment } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import { useMemo, useRef } from 'react'
-import { LinearFilter, LinearMipMapLinearFilter, ShaderMaterial, Uniform } from 'three'
+import { LinearMipMapLinearFilter, ShaderMaterial, Uniform, WebGLRenderTarget } from 'three'
 import { FullScreenQuad } from 'three-stdlib'
 import RES from '../RES'
+import vertexShader from '../shaders/common/vertex.glsl'
 import fragmentShader from '../shaders/IBLofSpecularBRDF/fragment.glsl'
-import vertexShader from '../shaders/IBLofSpecularBRDF/vertex.glsl'
 
 function PrefilterSpecular() {
   const envHdr = useEnvironment({ files: RES.texture.hdr })
   envHdr.generateMipmaps = true
   envHdr.minFilter = LinearMipMapLinearFilter
 
-  const fbo = useFBO(envHdr.image.width, envHdr.image.height, {
-    generateMipmaps: true,
-    minFilter: LinearMipMapLinearFilter,
-    magFilter: LinearFilter,
-  })
+  const fboList = useMemo(() => {
+    const list = []
+    for (let i = 0; i < 5; i++) {
+      list.push(new WebGLRenderTarget(envHdr.image.width >> i, envHdr.image.height >> i, {
+        generateMipmaps: false,
+      }))
+    }
+    return list
+  }, [])
 
   const isInit = useRef(false)
 
@@ -29,7 +33,7 @@ function PrefilterSpecular() {
       uEnvMap: new Uniform(envHdr),
       uWidth: new Uniform(envHdr.image.width),
       uHeight: new Uniform(envHdr.image.height),
-      uSamples: new Uniform(512),
+      uSamples: new Uniform(1024),
       uMipmapLevel: new Uniform(0),
       uRoughness: new Uniform(0),
     }
@@ -46,14 +50,19 @@ function PrefilterSpecular() {
   useFrame((state, _) => {
     const { gl } = state
     if (!isInit.current) {
-      isInit.current = true
-      gl.setRenderTarget(fbo)
-      fullScreenQuad.render(gl)
+      fboList.forEach((fbo, i) => {
+        gl.setRenderTarget(fbo)
+        uniforms.uMipmapLevel.value = i
+        uniforms.uRoughness.value = i / fboList.length
+        uniforms.uSamples.value = Math.max(8096, uniforms.uSamples.value * 2)
+        fullScreenQuad.render(gl)
+      })
       gl.setRenderTarget(null)
+      isInit.current = true
     }
   })
 
-  return fbo.texture
+  return fboList.map((fbo, i) => fbo.texture)
 }
 
 export {
