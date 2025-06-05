@@ -15,6 +15,8 @@ function Sketch() {
   useEffect(() => {
     scene.background = hdrTexture
 
+    scene.backgroundRotation.y = -Math.PI / 2
+
     useLoadedStore.setState({ ready: true })
   }, [])
 
